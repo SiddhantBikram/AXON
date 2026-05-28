@@ -1,0 +1,31 @@
+DATA:
+    DATASET: rosco
+    INPUT_SIZE: 224
+    LABEL_LIST: /path/to/base_class_labels.csv 
+    NUM_FRAMES: 16
+    ROOT: /path/to/rosco
+    TRAIN_FILE: /path/to/rosco_train.csv 
+    VAL_FILE: /path/to/rosco_val.csv 
+    SKELETON_DATA: /path/to/rosco.npz
+    NUM_CLASSES: 6
+    
+SAVE_FREQ: 1 
+MODEL:
+    ARCH: ViT-B/16
+    POSE_MODEL: 'trainers.Hyperformer.Hyperformer_Model'
+    GRAPH: 'graph.rosco.Graph'
+    LABELING_MODE: 'spatial'
+    JOINT_LABEL: [0, 4, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 2, 3, 3, 3, 2, 3, 3, 3, 1, 0, 1, 0, 1]
+
+TRAIN:
+    EPOCHS: 150
+    BATCH_SIZE: 32 
+    ACCUMULATION_STEPS: 1
+    LR: 1e-05
+    WARMUP_EPOCHS: 0
+TEST:
+    MULTI_VIEW_INFERENCE: False 
+TRAINER:
+  AXON:
+    ZS_EVAL: False 
+    USE: "both" # both refers to complete fine-tuning of CLIP (text+image encoders)
